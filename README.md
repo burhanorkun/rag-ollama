@@ -1,6 +1,6 @@
-# RAG Claude + Ollama — Tamamen Local Embedding
+# RAG Claude + Ollama — All Local Embedding
 
-Tek API key (Anthropic), embedding tamamen local.
+One API key (Anthropic), embedding all local.
 
 - **Vector DB:** Qdrant (Docker)
 - **Embeddings:** Ollama + `nomic-embed-text` (768-dim, Apache 2.0, ~270 MB)
@@ -21,8 +21,8 @@ docker compose up --build
 ```
 
 İlk açılışta:
-1. Qdrant başlar (port 6333)
-2. Ollama başlar (port 11434)
+1. Qdrant start (port 6333)
+2. Ollama start (port 11434)
 3. `ollama-pull` container'ı `nomic-embed-text` modelini indirir (~270 MB, **internet gerekir**, sadece bir kez)
 4. App build edilir, 15 saniye bekler, sonra docs'u embed eder
 5. App 8080'de hazır
