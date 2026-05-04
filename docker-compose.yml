@@ -1,0 +1,55 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: rag-qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rag-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    # GPU kullanmak istersen (NVIDIA):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # Ollama'ya embedding modelini indir (bir kere çalışır, sonra exit eder)
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: rag-ollama-pull
+    depends_on:
+      - ollama
+    entrypoint: >
+      sh -c "sleep 5 && OLLAMA_HOST=http://ollama:11434 ollama pull nomic-embed-text"
+    restart: "no"
+
+  app:
+    build: .
+    container_name: rag-app
+    depends_on:
+      - qdrant
+      - ollama
+    ports:
+      - "8080:8080"
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      QDRANT_URL: http://qdrant:6333
+      OLLAMA_URL: http://ollama:11434
+    volumes:
+      - ./docs:/app/docs:ro
+    # ollama-pull bitmeden önce app açılırsa ilk embed call'ı 404 alır.
+    # Basit çözüm: app içinde retry var (bkz. OllamaClient).
+
+volumes:
+  qdrant_storage:
+  ollama_models:

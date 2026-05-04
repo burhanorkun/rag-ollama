@@ -1,0 +1,10 @@
+EPAM Systems is a global provider of digital platform engineering and software development services.
+The company was founded in 1993 and is headquartered in Newtown, Pennsylvania, USA.
+EPAM has offices in over 55 countries, including Türkiye, where it provides services to clients across Europe and the Middle East.
+The Türkiye office focuses primarily on Java, .NET, and cloud-native engineering teams.
+
+Burhan Orkun applied for a Senior Java Software Developer position at EPAM Türkiye in April 2026.
+The role requires hands-on Java experience, knowledge of public cloud platforms, and familiarity with AI/LLM tooling.
+
+Erkan is a pizza delivery driver.
+
