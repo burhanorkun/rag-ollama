@@ -70,6 +70,7 @@ public class QdrantClient {
                 .bodyToMono(Map.class)
                 .block();
 
+        assert response != null;
         List<Map<String, Object>> result = (List<Map<String, Object>>) response.get("result");
         List<Hit> hits = new ArrayList<>();
         for (Map<String, Object> r : result) {

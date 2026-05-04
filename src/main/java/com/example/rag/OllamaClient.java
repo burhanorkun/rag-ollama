@@ -50,6 +50,7 @@ public class OllamaClient {
                         .doBeforeRetry(s -> log.warn("Ollama embed retry: {}", s.failure().getMessage())))
                 .block();
 
+        assert response != null;
         return ((List<Number>) response.get("embedding"))
                 .stream().map(Number::floatValue).toList();
     }
